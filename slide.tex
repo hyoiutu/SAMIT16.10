@@ -1,28 +1,142 @@
-\documentclass[a4j,dvipdfmx]{beamer}
+\documentclass[a4j,dvipdfmx,xcolor={svgnames},20pt]{beamer}
 \usepackage{pxrubrica}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{
+  width=7cm,
+  compat=1.13
+}
+
 \title{数値解析が\jruby{乱数}{み|だ}れる}
 \author{13024156 藤原 渓亮}
 \begin{document}
   \maketitle
   \begin{frame}{今日やること}
+    \note{数値解析と乱数の関係について話していきます．実は乱数は
+    数値解析のような決定性アルゴリズムと組み合わせるといい結果をもたらす場合があります．}
+
     数値解析と乱数の関係を紹介していきます．
   \end{frame}
+
   \begin{frame}{数値解析とは}
+    \note{方程式や逆行列など単純な四則計算などの手順の組み合わせで解けない問題を
+    代数式に置き換えて近似的に求めるという学問です．単純な四則計算の組み合わせであればアルゴリズムで
+    記述することができ，プログラムに起こすことが可能です．}
+
     代数学的に解けない解析学の問題に対して代数式を用いて近似的に解を得る学問．
     \begin{center}$\Downarrow$\end{center}
     得られた解は単純な数値のみで扱う
     \begin{center}$\Downarrow$\end{center}
     数値のみで扱うということは計算機のアルゴリズムで記述可能
   \end{frame}
+
   \begin{frame}
+    \note{数値解析で解かれる問題の代表例として以下が挙げられます．代数方程式，逆行列，微分方程式，
+    積分，重積分，などです．ここで一つ例を見ていきましょう．代数方程式を数値解析で解く場合}
     \begin{itemize}
-      \item 代数方程式
+      \item {\color<2,2>{red}{代数方程式}}
       \item 逆行列
       \item 微分方程式
       \item 積分，重積分
-      \item etc
+      \item etc...
     \end{itemize}
+  \end{frame}
 
+  \begin{frame}
+    \note{まず，代数方程式とは変数xに係数がかかった多項式が0になるような
+    xを探す問題です．}
+    \begin{center}
+      代数方程式
+      \\ $\Downarrow$ \\
+      $f(x)=0$となるような解$x$を求める問題
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \note{この問題は数値解析をしなくても解の公式を使えば解ける問題なのですが
+    連立方程式や次数に依存しない解き方というのは数値解析を使わないとできません．}
+    \begin{center}
+      代数的に解くことは可能
+      \\ $\Downarrow$ \\
+      解の公式(多項式の次数に依存する)
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \note{代数方程式を数値解析で解くにあたって代表的に簡単なアルゴリズムが
+    ニュートン法と呼ばれるアルゴリズムです．}
+    \begin{center}
+      代数方程式を数値解析で解く
+      \\ $\Downarrow$ \\
+      代表例) ニュートン法
+    \end{center}
+  \end{frame}
+
+  \begin{frame}{ニュートン法}
+    \begin{tikzpicture}
+      \begin{axis}[
+        axis x line=center,
+        axis y line=center,
+        xtick={-8,-4,...,8},
+        ytick={-64,-32,...,64},
+        xlabel={$x$},
+        ylabel={$y$},
+        xlabel style={below right},
+        ylabel style={above left},
+        xmin=-8,
+        xmax=8,
+        ymin=-16,
+        ymax=64
+      ]
+        \addplot [mark=none,domain=-8:8] {x^2 - 4*x - 5};
+        \addplot [mark=none,domain=-8:8] {2*(x-3) - 8};
+      \end{axis}
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}{ニュートン法}
+    \begin{tikzpicture}
+      \begin{axis}[
+        axis x line=center,
+        axis y line=center,
+        xtick={-8,-4,...,8},
+        ytick={-64,-32,...,64},
+        xlabel={$x$},
+        ylabel={$y$},
+        xlabel style={below right},
+        ylabel style={above left},
+        xmin=-8,
+        xmax=8,
+        ymin=-16,
+        ymax=64
+      ]
+        \addplot [mark=none,domain=-8:8] {x^2 - 4*x - 5};
+        \addplot [mark=none,domain=-8:8] {10*(x-7) + 16};
+      \end{axis}
+    \end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}{ニュートン法}
+    \begin{tikzpicture}
+      \begin{axis}[
+        axis x line=center,
+        axis y line=center,
+        xtick={-8,-4,...,8},
+        ytick={-64,-32,...,64},
+        xlabel={$x$},
+        ylabel={$y$},
+        xlabel style={below right},
+        ylabel style={above left},
+        xmin=-8,
+        xmax=8,
+        ymin=-16,
+        ymax=64
+      ]
+        \addplot [mark=none,domain=-8:8] {x^2 - 4*x - 5};
+        \addplot [mark=none,domain=-8:8] {6.8*(x-5.4) + 2.56};
+      \end{axis}
+    \end{tikzpicture}
   \end{frame}
   \begin{frame}{乱数(列)とは}
     出力が一意的ではない数字のこと，法則性がない数列のこと
