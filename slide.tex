@@ -73,71 +73,48 @@
     \end{center}
   \end{frame}
 
-  \begin{frame}{ニュートン法}
-    \begin{tikzpicture}
-      \begin{axis}[
-        axis x line=center,
-        axis y line=center,
-        xtick={-8,-4,...,8},
-        ytick={-64,-32,...,64},
-        xlabel={$x$},
-        ylabel={$y$},
-        xlabel style={below right},
-        ylabel style={above left},
-        xmin=-8,
-        xmax=8,
-        ymin=-16,
-        ymax=64
-      ]
-        \addplot [mark=none,domain=-8:8] {x^2 - 4*x - 5};
-        \addplot [mark=none,domain=-8:8] {2*(x-3) - 8};
-      \end{axis}
-    \end{tikzpicture}
-  \end{frame}
+\begin{frame}{ニュートン法}
+\begin{tikzpicture}[domain=0:8, samples=100, very thick] % 定義域、点の数、線幅
+  \draw (0,0) node[below left]{O}; % 原点、0でも、above, below, left, rightで位置指定
+  % 位置指定はanchor=north, south, east, westでも可能
+  \draw[thick, ->] (-2,0)--(4,0) node[right] {$x$}; % x軸、[->]で矢印、他に[-stealth]等
+  \draw[thick, ->] (0,-2)--(0,4) node[above] {$y$}; % y軸
 
-  \begin{frame}{ニュートン法}
-    \begin{tikzpicture}
-      \begin{axis}[
-        axis x line=center,
-        axis y line=center,
-        xtick={-8,-4,...,8},
-        ytick={-64,-32,...,64},
-        xlabel={$x$},
-        ylabel={$y$},
-        xlabel style={below right},
-        ylabel style={above left},
-        xmin=-8,
-        xmax=8,
-        ymin=-16,
-        ymax=64
-      ]
-        \addplot [mark=none,domain=-8:8] {x^2 - 4*x - 5};
-        \addplot [mark=none,domain=-8:8] {10*(x-7) + 16};
-      \end{axis}
-    \end{tikzpicture}
-  \end{frame}
+  \draw plot[domain=-0.5:2.25](\x, {(\x*\x)-(3*\x)+2}) node at (4.5,1) {$f(x)=x^2-3x+2$}; % atでnodeの位置指定
+  \draw plot[domain=-1:1](\x, -3*\x+2) node[below] {$g(x)=-3x+2$}; % 多項式
+  \draw [very thin, dashed](0.666,0) -- (0.666,2) node[above,right]{$x=\frac{2}{3}$}; % 補助線
 
-  \begin{frame}{ニュートン法}
-    \begin{tikzpicture}
-      \begin{axis}[
-        axis x line=center,
-        axis y line=center,
-        xtick={-8,-4,...,8},
-        ytick={-64,-32,...,64},
-        xlabel={$x$},
-        ylabel={$y$},
-        xlabel style={below right},
-        ylabel style={above left},
-        xmin=-8,
-        xmax=8,
-        ymin=-16,
-        ymax=64
-      ]
-        \addplot [mark=none,domain=-8:8] {x^2 - 4*x - 5};
-        \addplot [mark=none,domain=-8:8] {6.8*(x-5.4) + 2.56};
-      \end{axis}
-    \end{tikzpicture}
-  \end{frame}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{ニュートン法}
+\begin{tikzpicture}[domain=0:8, samples=100, very thick] % 定義域、点の数、線幅
+  \draw (0,0) node[below left]{O}; % 原点、0でも、above, below, left, rightで位置指定
+  % 位置指定はanchor=north, south, east, westでも可能
+  \draw[thick, ->] (-2,0)--(4,0) node[right] {$x$}; % x軸、[->]で矢印、他に[-stealth]等
+  \draw[thick, ->] (0,-2)--(0,4) node[above] {$y$}; % y軸
+
+  \draw plot[domain=-0.5:2.25](\x, {(\x*\x)-(3*\x)+2}) node at (4.5,1) {$f(x)=x^2-3x+2$}; % atでnodeの位置指定
+  \draw plot[domain=-1:1](\x, {-1.666*(\x-0.666)+0.444}) node[below] {$g(x)=-\frac{5}{3}(x - \frac{2}{3}) + \frac{4}{9}$}; % 多項式
+  \draw [very thin, dashed](0.933,0) -- (0.933,2) node[above,right]{$x=\frac{14}{15}$}; % 補助線
+
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{ニュートン法}
+\begin{tikzpicture}[domain=0:8, samples=100, very thick] % 定義域、点の数、線幅
+  \draw (0,0) node[below left]{O}; % 原点、0でも、above, below, left, rightで位置指定
+  % 位置指定はanchor=north, south, east, westでも可能
+  \draw[thick, ->] (-2,0)--(4,0) node[right] {$x$}; % x軸、[->]で矢印、他に[-stealth]等
+  \draw[thick, ->] (0,-2)--(0,4) node[above] {$y$}; % y軸
+
+  \draw plot[domain=-0.5:2.25](\x, {(\x*\x)-(3*\x)+2}) node at (4.5,1) {$f(x)=x^2-3x+2$}; % atでnodeの位置指定
+  \draw plot[domain=-1:1.5](\x, {-1.133*(\x-0.933)+0.071}) node[below] {$g(x)=-\frac{17}{15}(x - \frac{14}{15}) + \frac{16}{225}$}; % 多項式
+  \draw [very thin, dashed](0.996,0) -- (0.996,2) node[above,right]{$x=\frac{254}{255}$}; % 補助線
+
+\end{tikzpicture}
+\end{frame}
+
   \begin{frame}{乱数(列)とは}
     出力が一意的ではない数字のこと，法則性がない数列のこと
     \begin{itemize}
