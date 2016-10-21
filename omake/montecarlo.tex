@@ -1,0 +1,53 @@
+\documentclass[dvipdfmx]{standalone}
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{ifthen}
+
+\usetikzlibrary{calc}
+\pgfmathsetseed{20}
+
+\newcount\tmpinput
+
+\newcount\Begin
+\newcount\End
+
+\newcount\numofplot
+\newcount\redplot
+\newcount\blueplot
+
+\begin{document}
+
+  \message{積分範囲の下限を入力してください}
+  \read-1 to \tmpinput
+  \Begin = \tmpinput
+  \message{積分範囲の上限を入力してください}
+  \read-1 to \tmpinput
+  \End = \tmpinput
+
+  \begin{tikzpicture}[declare function = {func(\x) = exp(\x);}]
+    %\draw [ultra thick] (\Begin,{func(\Begin)}) rectangle (\End,{func(\End)});
+    \draw[thick]  plot[domain=\Begin:\End,samples=100] (\x,{func(\x)});
+    \foreach \i in {1,...,50}
+    {
+      \pgfmathsetmacro\myX{random(\Begin,\End-1) + random(0,1000)/1000}%
+      \pgfmathsetmacro\myY{random({func(\Begin)},{func(\End-1)}) + random(0,1000)/1000}%
+      \pgfmathsetmacro{\rndcolor}{ func(\myX)<\myY ? "red" : "blue" }
+      \pgfmathparse{func(\myX)<\myY ? "red" : "blue"}
+      \ifthenelse{\equal{\pgfmathresult}{red}}{\advance \redplot by 1}{\advance \blueplot by 1}
+      \filldraw[fill=\rndcolor] (\myX, \myY) circle [radius=(\End-\Begin)*0.01];
+    }
+    \numofplot = \i
+    \pgfmathsetmacro\result{(\End-\Begin)*func(\End)*\blueplot/\numofplot}
+    \pgfmathparse{(\End-\Begin)*func(\End)}
+    \def\overallS{\pgfmathresult}
+    \draw (7,5) node {全体の点数 = \the\numofplot};
+    \draw (7,4) node {青い点数 = \the\blueplot};
+    \draw (7,3) node {赤い点数 = \the\redplot};
+    \draw (7,2) node {全体的な面積 = \overallS};
+    \def\mathfunction{$\int  f(x)dx$}
+    \draw (7,1) node {\mathfunction = \pgfmathparse{\result}\pgfmathresult};
+  \end{tikzpicture}
+\end{document}

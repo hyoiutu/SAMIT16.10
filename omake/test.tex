@@ -1,0 +1,10 @@
+\documentclass{jsarticle}
+\usepackage{ifthen}
+\makeatletter
+\newcommand{\mkBra}[1]{%
+\@tfor\ch:=#1\do{\ifthenelse{\equal{\ch}{x}}{\textbackslash x}{\ch}}%
+}%
+\makeatother
+\begin{document}
+\mkBra{12345xxxx}
+\end{document}
