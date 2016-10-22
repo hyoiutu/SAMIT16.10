@@ -23,12 +23,17 @@
 \setcounter{redplot}{0}
 \setcounter{blueplot}{0}
 
+\newcount\input
+
+\message{プロット点数を入力してください}
+\read-1 to \input
+
 \begin{document}
 
-  \begin{tikzpicture}[declare function = {func(\x) = sqrt(\arabic{end}^2-\x^2);}]
+  \begin{tikzpicture}[declare function = {func(\x) = \x;}]
     \draw [ultra thick] (\arabic{begin},\arabic{begin}) rectangle (\arabic{end},\arabic{end});
     \draw[thick]  plot[domain=\arabic{begin}:\arabic{end},samples=100] (\x,{func(\x)});
-    \foreach \i in {1,...,7000}
+    \foreach \i in {1,...,\input}
     {
       \pgfmathsetmacro\myX{random(\arabic{begin},\arabic{end}-1) + random(0,1000)/1000}%
       \pgfmathsetmacro\myY{random(\arabic{begin},\arabic{end}-1) + random(0,1000)/1000}%
